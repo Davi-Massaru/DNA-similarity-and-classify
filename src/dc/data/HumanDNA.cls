@@ -9,8 +9,7 @@ Property kMersVector As %Vector(DATATYPE = "DOUBLE", LEN = 768);
 
 Property dnaClass As %Integer;
 
-
-ClassMethod UploadData() As %Status [ Language = python]
+ClassMethod UploadData() As %Status [ Language = python ]
 {
     import pandas as pd
     from sentence_transformers import SentenceTransformer
@@ -53,7 +52,34 @@ ClassMethod UploadData() As %Status [ Language = python]
     stmt = iris.sql.prepare(query)
     for index, row in human_df.iterrows():
         rs = stmt.execute(row['sequence'],row['K_mers_str'],row['class'])
+}
 
+ClassMethod findSimilarity(pSequence As %String) As %String [ Language = python ]
+{
+    import iris
+    from sentence_transformers import SentenceTransformer
+
+    results = []
+
+    def getKmers(sequence, size=6, max_length=5000):
+        kmers = [sequence[x:x+size].lower() for x in range(len(sequence) - size + 1)]
+        kmers = [kmer for kmer in kmers if len(kmer) > 0]
+        if len(kmers) == 0:
+            return [sequence]
+        return kmers[:max_length]
+        
+
+    model = SentenceTransformer('stsb-roberta-base-v2') 
+    kmers = getKmers(pSequence)
+    kmers_str = ' '.join(kmers)
+    search_vector = model.encode(kmers_str, normalize_embeddings=True).tolist()
+
+    stmt = iris.sql.prepare("SELECT TOP 5 ID FROM dc_data.HumanDNA ORDER BY VECTOR_DOT_PRODUCT(kMersVector, TO_VECTOR(?)) DESC ")
+    rs = stmt.execute(str(search_vector))
+    for idx, row in enumerate(rs):
+        humanDNA = iris.cls("dc.data.HumanDNA")._OpenId(row[0])        
+        results.append(humanDNA)
+    return results
 }
 
 Storage Default
