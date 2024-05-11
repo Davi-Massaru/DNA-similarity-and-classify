@@ -1,14 +1,8 @@
-ROUTINE iris
 
-    do ##class(%SYSTEM.OBJ).LoadDir("/opt/irisbuild/src","ck",,1)
-
-    zn "%SYS"
-    do ##class(Security.Users).UnExpireUserPasswords("*")
-
-    zn "USER"
-
-    Do ##class(dc.data.HumanDNA).UploadData()
-
-    zpm "load /opt/irisbuild/ -v":1:1
-
-    halt
+do ##class(%SYSTEM.OBJ).LoadDir("/opt/irisbuild/src","ck",,1)
+zn "%SYS"
+do ##class(Security.Users).UnExpireUserPasswords("*")
+zn "USER"
+Do ##class(dc.data.HumanDNA).UploadData()
+zpm "load /opt/irisbuild/ -v":1:1
+halt
