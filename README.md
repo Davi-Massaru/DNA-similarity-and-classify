@@ -42,13 +42,15 @@ Initially, a long biological sequence is partitioned into "words" of length k wi
 
 In this project, k-mer counting serves as a foundational technique for processing genetic sequence data, facilitating the comparative analysis of DNA.
 
+![Exemplo de imagem](https://raw.githubusercontent.com/Davi-Massaru/DNA-similarity-and-classify/main/assets/dna_flow.png)
+
 DNA sequences are vectorized based on k-mers, utilizing IRIS vector search for storage and retrieval, enabling the identification of DNAs similar to the received DNA within the database.
 
 ## Machine Learning
 
 Furthermore, the system provides a solution for processing and analyzing genetic sequence data using machine learning. Definitions are provided for each of the seven classes, along with their respective quantities in human training data. These classes represent functional groups of genetic sequences.
 
-![Exemplo de imagem](/data/_results_.png)
+![Exemplo de imagem](https://raw.githubusercontent.com/Davi-Massaru/DNA-similarity-and-classify/main/assets/_results_.png)
 
 - <b>G protein coupled receptors</b>: G protein-coupled receptors are a class of cell membrane proteins that detect signaling molecules and activate signal transduction pathways within the cell.
 
