@@ -19,7 +19,7 @@ The DNA Similarity and Classification is a REST API that utilizes InterSystems V
 
 To download the project, use the following command in the terminal:
 ```
-git clone 
+git clone https://github.com/Davi-Massaru/DNA-similarity-and-classify.git
 ```
 To run the project, use the command: 
 ```
