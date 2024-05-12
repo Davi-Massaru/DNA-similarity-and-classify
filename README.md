@@ -1,4 +1,5 @@
 ## DNA similarity and classify
+
 The DNA Similarity and Classification is a REST API that utilizes InterSystems Vector Search technology. Its primary aim is to identify genetic similarities by analyzing a vector database derived from interpreting a dataset obtained during the implementation of the project: [Human DNA Sequences Dataset](https://www.kaggle.com/datasets/sooryaprakash12/human-dna-sequences/data?select=human_data.txt).
 
 
@@ -33,13 +34,19 @@ The explanation of how the project works can be found at this link.
 
 ## Solution
 
+## Vector Search
 
 The system is capable of receiving a DNA sequence as input and, through IRIS Vector Search, identifying DNAs with similar genes. This functionality enables rapid identification of patterns and similarities among the provided genetic sequences.
 
+Initially, a long biological sequence is partitioned into "words" of length k with overlap. For instance, when employing "words" of length 6 (referred to as hexamers), the sequence "ATGCATGCA" is segmented into: 'ATGCAT', 'TGCATG', 'GCATGC', 'CATGCA'. Consequently, the example sequence is divided into 4 hexamer words. While hexamers are utilized here, the word length is arbitrary and can be adjusted to accommodate specific requirements. Both the word length and the degree of overlap must be determined empirically for each application. In genomics, these procedures are commonly known as "k-mer counting," where the frequencies of each possible k-mer are tallied.
 
+In this project, k-mer counting serves as a foundational technique for processing genetic sequence data, facilitating the comparative analysis of DNA.
+
+DNA sequences are vectorized based on k-mers, utilizing IRIS vector search for storage and retrieval, enabling the identification of DNAs similar to the received DNA within the database.
+
+## Machine Learning
 
 Furthermore, the system provides a solution for processing and analyzing genetic sequence data using machine learning. Definitions are provided for each of the seven classes, along with their respective quantities in human training data. These classes represent functional groups of genetic sequences.
-
 
 ![Exemplo de imagem](/data/_results_.png)
 
@@ -57,9 +64,24 @@ Furthermore, the system provides a solution for processing and analyzing genetic
 
 - <b>transcription factor</b>: Transcription factors are proteins that bind to DNA and control gene transcription, thereby regulating gene expression and influencing various cellular and developmental processes.
 
-Initially, a long biological sequence is divided into "words" of length k with overlap. For example, when using "words" of length 6 (hexamers), "ATGCATGCA" becomes: 'ATGCAT', 'TGCATG', 'GCATGC', 'CATGCA'. Consequently, the example sequence is divided into 4 hexamer words. Although hexamer words are used here, the word length is arbitrary and can be adjusted to suit specific situations. Both the word length and the amount of overlap need to be empirically determined for each application. In genomics, these manipulations are commonly referred to as "k-mer counting," where the occurrences of each possible k-mer are counted.
+### Machine learning model validation
 
-In this project, k-mer counting is employed as a fundamental technique for processing genetic sequence data, thereby enabling comparative analysis of DNA.
+```
+  Predicted   0    1   2    3    4   5    6
+  Actual                                   
+  0          99    0   0    0    1   0    2
+  1           0  104   0    0    0   0    2
+  2           0    0  78    0    0   0    0
+  3           0    0   0  124    0   0    1
+  4           1    0   0    0  143   0    5
+  5           0    0   0    0    0  51    0
+  6           1    0   0    1    0   0  263
+  accuracy = 0.984 
+  precision = 0.984 
+  recall = 0.984 
+  f1 = 0.984
+```
+
 
 ## Sequence Diagram
 
