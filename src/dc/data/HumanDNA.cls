@@ -76,9 +76,24 @@ ClassMethod findSimilarity(pSequence As %String) As %String [ Language = python 
 
     stmt = iris.sql.prepare("SELECT TOP 5 ID FROM dc_data.HumanDNA ORDER BY VECTOR_DOT_PRODUCT(kMersVector, TO_VECTOR(?)) DESC ")
     rs = stmt.execute(str(search_vector))
+
+    class_mapping = {
+            0: 'G protein coupled receptors',
+            1: 'tyrosine kinase',
+            2: 'tyrosine phosphatase',
+            3: 'synthetase',
+            4: 'synthase',
+            5: 'lon channel',
+            6: 'transcription factor',
+    }
+
     for idx, row in enumerate(rs):
-        humanDNA = iris.cls("dc.data.HumanDNA")._OpenId(row[0])        
-        results.append(humanDNA)
+        humanDNA = iris.cls("dc.data.HumanDNA")._OpenId(row[0])    
+
+        results.append({
+            "sequence": humanDNA.sequence,
+            "dnaClass": class_mapping[humanDNA.dnaClass]
+        })
     return results
 }
 
