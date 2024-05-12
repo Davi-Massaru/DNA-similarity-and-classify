@@ -7,10 +7,11 @@ The DNA Similarity and Classification is a REST API that utilizes InterSystems V
 - [Installation](#installation)
 - [Video Demo](#video-demo)
 - [Solution](#solution)
+  - [Vector Search](#vector-search)
+  - [Machine Learning](#machine-learning)
   - [Sequence Diagram](#sequence-diagram)
   - [Data Input](#data-input)
   - [Data Output](#data-output)
-- [Architecture](#architecture)
 - [Team Members](#team-members)
 
 
@@ -87,19 +88,34 @@ Furthermore, the system provides a solution for processing and analyzing genetic
 
 ## Sequence Diagram
 
+```mermaid
+sequenceDiagram
+    actor user
+    user ->> API: Sends DNA sequence
+    
+    API->dc.data.HumanDNA: Sends DNA sequence
+    dc.data.HumanDNA->Vector Search: Sends DNA k-mer vectors
+    Vector Search-->API: Returns similar DNAs
+    
+    API->dc.data.DNAClassification: Sends DNA sequence
+    dc.data.DNAClassification->ModelML: Sends DNA sequence
+    
+    ModelML-->API: Provides DNA class classification and probability
+    
+    API-->user: Returns similar DNAs to the input and their classification
+```
+
 ## Data Input
 
 ## Data Output
 
 ## Technologies Used
+
 - **InterSystems IRIS**: 
 Used for creating the vectorized database and structuring the REST API.
 - **Docker Container**: Used to create the environment and IRIS application, so that, through a single command, "docker-compose up," the entire project is ready for use.
 - **Embedded Python**: Used to create all application scripts, such as: Assembling the vectorized database by inserting VECTOR type data.
 - **Vector search**: Used as a mechanism to search for DNA sequences, comparing similar genetic chromosomes in terms of genetic semantics.
-
-## Architecture
-
 
 ## Team Members
 [![GitHub](https://img.shields.io/badge/GitHub-Davi--Massaru-blue?logo=github)](https://community.intersystems.com/user/davi-massaru-teixeira-muta) : [Davi Muta](https://community.intersystems.com/user/davi-massaru-teixeira-muta)
