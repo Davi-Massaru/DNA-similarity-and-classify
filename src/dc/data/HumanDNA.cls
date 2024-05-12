@@ -46,12 +46,12 @@ ClassMethod UploadData() As %Status [ Language = python ]
     print("Filling table")
     query = """
                 INSERT INTO dc_data.HumanDNA 
-                (sequence, kMers,    dnaClass) 
-                VALUES (?,    ?,  ?)
+                (sequence, kMers,   kMersVector, dnaClass) 
+                VALUES (?,    ?, TO_VECTOR(?), ?)
             """
     stmt = iris.sql.prepare(query)
     for index, row in human_df.iterrows():
-        rs = stmt.execute(row['sequence'],row['K_mers_str'],row['class'])
+        rs = stmt.execute(row['sequence'],row['K_mers_str'],str(row['sequence_vectorized']),row['class'])
 }
 
 ClassMethod findSimilarity(pSequence As %String) As %String [ Language = python ]

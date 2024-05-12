@@ -2,4 +2,3 @@
 .vscode/
 *.config/
 .env
-data/human_data.txt

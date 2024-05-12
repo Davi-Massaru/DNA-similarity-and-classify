@@ -11,3 +11,7 @@ services:
       - 53773
     volumes:
       - ./:/irisrun/repo
+      - db_data:/opt/irisbuild/data/
+
+volumes:
+  db_data:
