@@ -31,7 +31,8 @@ docker-compose up -d --build
 
 ## Video Demo
 
-The explanation of how the project works can be found at this link.
+To understand how the project works, please watch the demonstration at this [link](https://youtu.be/mk2jMwolnvU?si=TVF8cD9tNNQDgSdZ).
+
 
 ## Solution
 
