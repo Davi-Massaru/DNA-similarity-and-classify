@@ -1,2 +1,4 @@
 pandas
 sentence-transformers
+scikit-learn
+joblib
